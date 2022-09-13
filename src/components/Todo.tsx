@@ -1,4 +1,4 @@
-import { ITodo, todoState } from "../atoms";
+import { categories, ITodo, todoState } from "../atoms";
 import { useSetRecoilState } from "recoil";
 function Todo({ text, id, category }: ITodo) {
   const setTodos = useSetRecoilState(todoState);
@@ -21,18 +21,18 @@ function Todo({ text, id, category }: ITodo) {
     <>
       <li>
         <span>{text}</span>
-        {category !== "DOING" && (
-          <button name="DOING" onClick={onClick}>
+        {category !== categories.DOING && (
+          <button name={categories.DOING} onClick={onClick}>
             Doing
           </button>
         )}
-        {category !== "TO_DO" && (
-          <button name="TO_DO" onClick={onClick}>
+        {category !== categories.TO_DO && (
+          <button name={categories.TO_DO} onClick={onClick}>
             To Do
           </button>
         )}
-        {category !== "DONE" && (
-          <button name="DONE" onClick={onClick}>
+        {category !== categories.DONE && (
+          <button name={categories.DONE} onClick={onClick}>
             Done
           </button>
         )}

@@ -1,8 +1,20 @@
-import { categories, ITodo, todoState } from "../atoms";
-import { useSetRecoilState } from "recoil";
+import { categoryList, ITodo, todoState } from "../atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import styled from "styled-components";
+import React from "react";
+
+const DeleteBtn = styled.button`
+  background: none;
+  border: none;
+  :hover {
+    color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
+`;
 function Todo({ text, id, category }: ITodo) {
   const setTodos = useSetRecoilState(todoState);
-  const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const categories = useRecoilValue(categoryList);
+  const moveCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
     const {
       currentTarget: { name },
     } = event;
@@ -17,25 +29,27 @@ function Todo({ text, id, category }: ITodo) {
       return copyTodos;
     });
   };
+  const deleteList = (event: React.FormEvent<HTMLButtonElement>) => {
+    const id = Number(event.currentTarget.value);
+    setTodos((oldTodos) => {
+      return [...oldTodos.filter((todo) => todo.id !== id)];
+    });
+  };
   return (
     <>
       <li>
         <span>{text}</span>
-        {category !== categories.DOING && (
-          <button name={categories.DOING} onClick={onClick}>
-            Doing
-          </button>
+        {categories.map(
+          (cate) =>
+            category !== cate && (
+              <button key={cate} name={cate} onClick={moveCategory}>
+                {cate}
+              </button>
+            )
         )}
-        {category !== categories.TO_DO && (
-          <button name={categories.TO_DO} onClick={onClick}>
-            To Do
-          </button>
-        )}
-        {category !== categories.DONE && (
-          <button name={categories.DONE} onClick={onClick}>
-            Done
-          </button>
-        )}
+        <DeleteBtn value={id} onClick={deleteList}>
+          ❌
+        </DeleteBtn>
       </li>
     </>
   );

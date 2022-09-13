@@ -20,7 +20,7 @@ function CreateTodo() {
         {...register("todo", { required: "Please write a todo" })}
         placeholder="Write a todo..."
       />
-      <button>Add</button>
+      <button>목록 추가</button>
     </form>
   );
 }

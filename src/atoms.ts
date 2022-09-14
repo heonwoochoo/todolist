@@ -17,6 +17,7 @@ export const todoState = atom<ITodo[]>({
 export const categoryState = atom<ITodo["category"]>({
   key: "category",
   default: "",
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const categoryList = atom<string[]>({
@@ -25,11 +26,17 @@ export const categoryList = atom<string[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const focusState = atom<string | null>({
+  key: "focus",
+  default: null,
+});
+
 export const selectTodos = selector({
   key: "selectTodos",
   get: ({ get }) => {
     const todos = get(todoState);
     const category = get(categoryState);
-    return todos.filter((todo) => todo.category === category);
+    if (category === "ALL") return todos;
+    else return todos.filter((todo) => todo.category === category);
   },
 });

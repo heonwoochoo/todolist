@@ -47,6 +47,9 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+* {
+	box-sizing: border-box;
+}
 `;
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

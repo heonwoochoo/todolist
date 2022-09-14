@@ -1,4 +1,4 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { categoryList, categoryState, focusState } from "../atoms";
 
@@ -42,7 +42,7 @@ const DeleteBtn = styled.button`
 `;
 function CategoryList() {
   const [categories, setCategories] = useRecoilState(categoryList);
-  const [category, setCategory] = useRecoilState(categoryState);
+  const setCategory = useSetRecoilState(categoryState);
   const [isFocus, setIsFocus] = useRecoilState(focusState);
   const onClick = (event: any) => {
     if (event === "ALL") {

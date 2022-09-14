@@ -32,8 +32,7 @@ const Button = styled.button`
   height: 38px;
 `;
 const ErrorMessage = styled.h3`
-  position: absolute;
-  top: 130px;
+  color: #cfd2cf;
 `;
 function CreateTodo() {
   const setTodos = useSetRecoilState(todoState);
@@ -56,8 +55,8 @@ function CreateTodo() {
       <FormContainer onSubmit={handleSubmit(onValid)}>
         <Input
           {...register("todo", {
-            required: "Write a todo",
-            validate: () => isFocus !== "ALL" || "Please set category !",
+            required: "목록을 추가해보세요 !",
+            validate: () => isFocus !== "ALL" || "카테고리를 선택해주세요.",
           })}
           placeholder="Write a todo..."
         />

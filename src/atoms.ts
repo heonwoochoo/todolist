@@ -28,7 +28,7 @@ export const categoryList = atom<string[]>({
 
 export const focusState = atom<string | null>({
   key: "focus",
-  default: null,
+  default: "ALL",
 });
 
 export const selectTodos = selector({

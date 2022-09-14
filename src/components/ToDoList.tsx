@@ -2,17 +2,15 @@ import { useRecoilState } from "recoil";
 import CreateTodo from "./CreateTodo";
 import Todo from "./Todo";
 import { useRecoilValue } from "recoil";
-import { categoryList, categoryState, focusState, selectTodos } from "../atoms";
+import { categoryList, focusState, selectTodos } from "../atoms";
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
-import React, { useState } from "react";
 import CreateCategory from "./CreateCategory";
 import { BsPencilSquare } from "react-icons/bs";
 import CategoryList from "./CategoryList";
 const Title = styled.h1`
   text-align: center;
   padding: 30px;
-  font-size: 48px;
+  font-size: 36px;
 `;
 const Container = styled.div`
   display: flex;
@@ -46,6 +44,7 @@ const Layer = styled.div`
 function ToDoList() {
   const todos = useRecoilValue(selectTodos);
   const [isFocus, setIsFocus] = useRecoilState(focusState);
+  const categories = useRecoilValue(categoryList);
   return (
     <div>
       <Title>What are you doing today?</Title>
@@ -59,7 +58,7 @@ function ToDoList() {
       </ModifyIcon>
       <Container>
         <CreateCategory />
-        <CreateTodo />
+        {categories.length ? <CreateTodo /> : null}
         <CategoryList />
         <TodoList>
           {todos.map((todo) => (
